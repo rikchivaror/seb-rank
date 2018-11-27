@@ -1,3 +1,5 @@
+# TODO: insert a detailed project description here
+
 cache = {
    'http://udacity.com/cs101x/urank/index.html': """<html>
 <body>
@@ -171,12 +173,14 @@ def ordered_search(index, ranks, keyword):
     return sorted_results
 
 
+# TODO: comment get_page procedure
 def get_page(url):
     if url in cache:
         return cache[url]
     return ""
 
 
+# TODO: comment get_next_target procedure
 def get_next_target(page):
     start_link = page.find('<a href=')
     if start_link == -1:
@@ -187,6 +191,7 @@ def get_next_target(page):
     return url, end_quote
 
 
+# TODO: comment get_all_links procedure
 def get_all_links(page):
     links = []
     while True:
@@ -199,18 +204,21 @@ def get_all_links(page):
     return links
 
 
+# TODO: comment union procedure
 def union(a, b):
     for e in b:
         if e not in a:
             a.append(e)
 
 
+# TODO: comment add_page_to_index procedure
 def add_page_to_index(index, url, content):
     words = content.split()
     for word in words:
         add_to_index(index, word, url)
 
 
+# TODO: comment add_to_index procedure
 def add_to_index(index, keyword, url):
     if keyword in index:
         index[keyword].append(url)
@@ -218,6 +226,7 @@ def add_to_index(index, keyword, url):
         index[keyword] = [url]
 
 
+# TODO: comment lookup procedure
 def lookup(index, keyword):
     if keyword in index:
         return index[keyword]
@@ -225,6 +234,7 @@ def lookup(index, keyword):
         return None
 
 
+# TODO: comment crawl_web procedure
 def crawl_web(seed):    # returns index, graph of inlinks
     tocrawl = [seed]
     crawled = []
@@ -242,6 +252,7 @@ def crawl_web(seed):    # returns index, graph of inlinks
     return index, graph
 
 
+# TODO: comment recipr_links procedure
 # -----------------------------------------------------------------------------
 # One of the problems with our page ranking system is pages can
 # collude with each other to improve their page ranks.  We consider
@@ -287,6 +298,7 @@ def recipr_links(graph, hops, base_node, curr_node=None):
     return loopbacks
 
 
+# TODO: comment find_colluders procedure
 def find_colluders(graph, k):
 
     colluders = []
@@ -299,6 +311,7 @@ def find_colluders(graph, k):
     return colluders
 
 
+# TODO: finish commenting computer_ranks procedure
 # -----------------------------------------------------------------------------
 # compute_ranks(graph, k):
 #   This is the page ranking algorithm. It determines the popularity of a page
