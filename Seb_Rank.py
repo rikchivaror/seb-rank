@@ -105,9 +105,8 @@ Hummus Recipe
 #   number of comparisons that scales as n log n where n is the number of elements
 #   in the list.
 #
-#   The idea of quicksort is quite simple:
-#
-#   If the list has zero or one elements, it is already sorted.
+#   The idea of quicksort is quite simple: if the list has zero or one elements,
+#       it is already sorted.
 #
 #   Otherwise, pick a pivot element, and split the list into two partitions: one
 #   contains all the elements equal to or lower than the value of the pivot
@@ -117,13 +116,13 @@ Hummus Recipe
 #   sorted right sub-list.
 #
 # Arguments:
-#   p: an unsorted list of the form [['<item>', <value>], ... ] where <value>
+#   p: An unsorted list of the form [[<item>, <value>], ... ] where <value>
 #       is a real number belonging to the set {0 to 1} and '<item>' is any object
-#       associated with that value
+#       associated with that value.
 #
 # Return:
-#   A sorted list of the form [['<item>', <value>], ... ] were each ['<item>', <value>]
-#   is sorted according to <value>, decreasing from left to right.
+#   A sorted list of the form [[<item>, <value>], ... ] were each [<item>,
+#   <value>] element is sorted according to <value>, decreasing from left to right.
 def quicksort(p):
 
     if len(p) == 1:
@@ -134,30 +133,28 @@ def quicksort(p):
     first_half, second_half = [], []
     pivot = p[0]                    # first list element is the pivot
 
-    for e in p[1:]:                 # for each element compare <value> to the 'pivot' value
+    for e in p[1:]:                 # compare <value> of each element to pivot's value
         if e[1] <= pivot[1]:
-            second_half.append(e)   # place element in the second list if value is greater than the 'pivot'
-        else:
-            first_half.append(e)    # otherwise place the element in the first list
+            second_half.append(e)   # place element in the second list if value is
+        else:                       # greater than the pivot otherwise place the
+            first_half.append(e)    # element in the first list
 
     return quicksort(first_half) + [pivot[0]] + quicksort(second_half)
 
-# The Feeling Lucky question (from the regular homework) assumed it was enough
-# to find the best-ranked page for a given query. For most queries, though, we
-# don't just want the best page (according to the page ranking algorithm), we
-# want a list of many pages that match the query, ordered from the most likely
-# to be useful to the least likely.
 
-# Your goal for this question is to define a procedure, ordered_search(index,
-# ranks, keyword), that takes the same inputs as lucky_search from Question 5,
-# but returns an ordered list of all the URLs that match the query.
-
-# To order the pages, use the quicksort algorithm, invented by Sir Tony Hoare in
-# 1959.
-
-# For simplicity, use the first element in the list as your pivot element (this
-# is not usually a good choice, since it means if the input list is already
-# nearly sorted, the actual work will be much worse than expected).
+# -----------------------------------------------------------------------------
+# ordered_search(index, ranks, keyword):
+#   The procedure takes takes as input an index, a ranks dictionary (the result
+#   of compute_ranks), and a keyword, and returns an ordered list of all the URLs
+#   that match the query. The Quicksort algorithm is used to perform list ordering.
+#
+# Arguments:
+#   index: [[<keyword>,[<url>,...]],...]
+#   ranks: the result of compute_ranks {<url>: <rank>, ...}
+#   keyword: String
+#
+# Returns:
+#   sorted_results: an ordered list of all the URLs that match the query.
 def ordered_search(index, ranks, keyword):
 
     results = lookup(index, keyword)
