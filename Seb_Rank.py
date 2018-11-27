@@ -33,41 +33,6 @@
 # nearly sorted, the actual work will be much worse than expected).
 
 
-def quicksort(p):
-
-    if len(p) == 1:
-        return [p[0][0]]
-    elif len(p) == 0:
-        return []
-
-    first_half, second_half = [], []
-    pivot = p[0]        # first list element is the pivot
-
-    for e in p[1:]:
-        if e[1] <= pivot[1]:
-            second_half.append(e)
-        else:
-            first_half.append(e)
-
-    return quicksort(first_half) + [pivot[0]] + quicksort(second_half)
-
-
-def ordered_search(index, ranks, keyword):
-
-    results = lookup(index, keyword)
-    ranked_results = []   # [[<url>, <rank>] ... ]
-
-    if not results:
-        return None
-
-    for e in results:
-        ranked_results.append([e, ranks[e]])
-
-    sorted_results = quicksort(ranked_results)
-
-    return sorted_results
-
-
 cache = {
    'http://udacity.com/cs101x/urank/index.html': """<html>
 <body>
@@ -86,11 +51,6 @@ and <a href="http://udacity.com/cs101x/urank/zinc.html">Zinc Chef</a>.
 </body>
 </html>
 
-
-
-
-
-
 """,
    'http://udacity.com/cs101x/urank/zinc.html': """<html>
 <body>
@@ -106,11 +66,6 @@ For great hummus, try
 </body>
 </html>
 
-
-
-
-
-
 """,
    'http://udacity.com/cs101x/urank/nickel.html': """<html>
 <body>
@@ -123,11 +78,6 @@ best Hummus recipe!
 
 </body>
 </html>
-
-
-
-
-
 
 """,
    'http://udacity.com/cs101x/urank/kathleen.html': """<html>
@@ -180,11 +130,43 @@ Hummus Recipe
 </body>
 </html>
 
-
-
-
 """,
 }
+
+
+def quicksort(p):
+
+    if len(p) == 1:
+        return [p[0][0]]
+    elif len(p) == 0:
+        return []
+
+    first_half, second_half = [], []
+    pivot = p[0]        # first list element is the pivot
+
+    for e in p[1:]:
+        if e[1] <= pivot[1]:
+            second_half.append(e)
+        else:
+            first_half.append(e)
+
+    return quicksort(first_half) + [pivot[0]] + quicksort(second_half)
+
+
+def ordered_search(index, ranks, keyword):
+
+    results = lookup(index, keyword)
+    ranked_results = []   # [[<url>, <rank>] ... ]
+
+    if not results:
+        return None
+
+    for e in results:
+        ranked_results.append([e, ranks[e]])
+
+    sorted_results = quicksort(ranked_results)
+
+    return sorted_results
 
 
 def get_page(url):
