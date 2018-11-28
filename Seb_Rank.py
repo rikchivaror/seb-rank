@@ -156,7 +156,7 @@ def quicksort(p):
 #   keyword: String
 #
 # Returns:
-#   sorted_results: an ordered list of all the URLs that match the query.
+#   sorted_results: an ordered list of all the URLs that match the query
 def ordered_search(index, ranks, keyword):
 
     results = lookup(index, keyword)
@@ -173,15 +173,31 @@ def ordered_search(index, ranks, keyword):
     return sorted_results
 
 
-# TODO: comment get_page procedure
+# -----------------------------------------------------------------------------
+# get_page(url):
+#   Get the HTML for an URL, possibly from an in-memory cache.
+#
+# Arguments:
+#   url: URL string
+#
+# Returns:
+#   HTML referenced by URL, as a String type
 def get_page(url):
+
     if url in cache:
         return cache[url]
     return ""
 
+    # try:
+    #     import urllib.request
+    #     return str(urllib.request.urlopen(url).read())
+    # except:
+    #     return ""
+
 
 # TODO: comment get_next_target procedure
 def get_next_target(page):
+
     start_link = page.find('<a href=')
     if start_link == -1:
         return None, 0
