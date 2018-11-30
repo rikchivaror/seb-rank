@@ -195,7 +195,16 @@ def get_page(url):
     #     return ""
 
 
-# TODO: comment get_next_target procedure
+# -----------------------------------------------------------------------------
+# get_next_target(page):
+#   Get the HTML for an URL, possibly from an in-memory cache.
+#
+# Arguments:
+#   page: a long String containing HTML code
+#
+# Returns:
+#   url: a String of the first URL found in 'page'
+#   end_quote: index position of "url's" end quote
 def get_next_target(page):
 
     start_link = page.find('<a href=')
